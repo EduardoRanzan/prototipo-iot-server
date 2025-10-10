@@ -52,6 +52,19 @@ networks:
   iot-net:
     driver: bridge
 
+  services:
+    app:
+      build: .
+      container_name: prototipo-iot-app
+      restart: unless-stopped
+      volumes:
+        - ./src:/app
+      depends_on:
+        - influxdb
+        - mosquitto
+      networks:
+        - iot-net
+
 volumes:
   influxdb-data:
   mosquitto-data:
