@@ -10,3 +10,5 @@ Protótipo para coleta de dados para monitoramento de medicamentos conforme a RD
 ![Esquema geral do projeto](./docs/img/esquema.png)
 
 **Autor:** [Eduardo Ranzan Ferreira](https://github.com/EduardoRanzan)
+
+**Docker Hub:** [eduardoranzanferreira/prototipo-iot](https://hub.docker.com/r/eduardoranzanferreira/prototipo-iot)
