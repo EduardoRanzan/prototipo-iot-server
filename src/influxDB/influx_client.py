@@ -1,13 +1,11 @@
-from dotenv import load_dotenv
-import os
 from influxdb_client import InfluxDBClient
+from config.config import Config
 
-load_dotenv()
 
-url = os.getenv("INFLUX_URL")
-token = os.getenv("INFLUX_TOKEN")
-org = os.getenv("INFLUX_ORG")
-bucket = os.getenv("INFLUX_BUCKET")
+url = Config.INFLUX_URL
+token = Config.INFLUX_TOKEN
+org = Config.INFLUX_ORG
+bucket = Config.INFLUX_BUCKET
 
 client = InfluxDBClient(url=url, token=token, org=org)
 

@@ -1,13 +1,10 @@
-import os
 import time
 import paho.mqtt.client as mqtt
-from dotenv import load_dotenv
 from .mosquitto_controller import controller_on_connect, controller_on_message
+from config.config import Config
 
-load_dotenv()
-
-BROKER = os.getenv("MOQ_BROKER", "localhost")
-PORT = int(os.getenv("MOQ_PORT", "1883"))
+BROKER = Config.MQTT_BROKER
+PORT = Config.MQTT_PORT
 
 
 def start():
