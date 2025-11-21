@@ -26,7 +26,10 @@ services:
     restart: unless-stopped
     ports:
       - ${MOSQUITTO_PORT}:1883
+<<<<<<< Updated upstream
       - "9001:9001"
+=======
+>>>>>>> Stashed changes
     volumes:
       - ./volumes/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto-data:/mosquitto/data
@@ -48,6 +51,26 @@ services:
     networks:
       - iot-net
 
+<<<<<<< Updated upstream
+=======
+  app:
+   image: prototipo-iot-app
+   container_name: prototipo-iot-app
+   restart: unless-stopped
+   environment:
+     - INFLUX_URL=http://influxdb:8086
+     - INFLUX_TOKEN=${INFLUX_TOKEN}
+     - INFLUX_ORG=${INFLUX_ORG}
+     - INFLUX_BUCKET=${INFLUX_BUCKET}
+     - MQTT_BROKER=mosquitto
+     - MQTT_PORT=1883
+   depends_on:
+     - influxdb
+     - mosquitto
+   networks:
+     - iot-net
+
+>>>>>>> Stashed changes
 networks:
   iot-net:
     driver: bridge

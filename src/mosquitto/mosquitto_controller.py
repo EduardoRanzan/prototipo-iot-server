@@ -1,6 +1,7 @@
 from sensors.sensor_controller import post_records
+from datetime import datetime
 
-TOPICS = [("sensores/temperatura", 0), ("sensores/luz", 0)]
+TOPICS = [("sensores/temperatura", 0), ("sensores/umidade", 0)]
 
 def controller_on_connect(client, userdata, flags, rc, properties=None):
     if rc == 0:
@@ -19,7 +20,7 @@ def controller_on_message(client, userdata, msg):
 
         post_records(sensor_type, value)
 
-        print(f"MOSQUITTO: [{sensor_type}] Valor recebido: {value}")
+        print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} MOSQUITTO: [{sensor_type}] Valor recebido: {value}")
     except ValueError as e:
         print(f"MOSQUITTO: Erro ao converter payload de {msg.topic}: {e}")
     except Exception as e:
