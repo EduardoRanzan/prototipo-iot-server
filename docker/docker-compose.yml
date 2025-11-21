@@ -19,17 +19,12 @@ services:
     networks:
       - iot-net
 
-
   mosquitto:
     image: eclipse-mosquitto:openssl
     container_name: mosquitto
     restart: unless-stopped
     ports:
       - ${MOSQUITTO_PORT}:1883
-<<<<<<< Updated upstream
-      - "9001:9001"
-=======
->>>>>>> Stashed changes
     volumes:
       - ./volumes/mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - mosquitto-data:/mosquitto/data
@@ -51,8 +46,6 @@ services:
     networks:
       - iot-net
 
-<<<<<<< Updated upstream
-=======
   app:
    image: prototipo-iot-app
    container_name: prototipo-iot-app
@@ -70,23 +63,9 @@ services:
    networks:
      - iot-net
 
->>>>>>> Stashed changes
 networks:
   iot-net:
     driver: bridge
-
-  services:
-    app:
-      build: .
-      container_name: prototipo-iot-app
-      restart: unless-stopped
-      volumes:
-        - ./src:/app
-      depends_on:
-        - influxdb
-        - mosquitto
-      networks:
-        - iot-net
 
 volumes:
   influxdb-data:
