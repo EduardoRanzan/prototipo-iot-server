@@ -1,3 +1,4 @@
+import json
 from sensors.sensor_controller import post_records
 from datetime import datetime
 
@@ -14,14 +15,22 @@ def controller_on_connect(client, userdata, flags, rc, properties=None):
 
 def controller_on_message(client, userdata, msg):
     try:
+        payload = msg.payload.decode().strip()
+
+        data = json.loads(payload)
+
+        value = float(data["value"])
+        timestamp_ms = int(data["ts"])
+
         sensor_type = msg.topic.split("/")[-1]
 
-        value = float(msg.payload.decode().strip())
+        post_records(sensor_type, value, timestamp_ms)
 
-        post_records(sensor_type, value)
+        print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} "
+              f"MOSQUITTO: [{sensor_type}] Valor: {value} | Timestamp: {timestamp_ms}")
 
-        print(f"{datetime.now().strftime("%Y-%m-%d %H:%M:%S")} MOSQUITTO: [{sensor_type}] Valor recebido: {value}")
-    except ValueError as e:
-        print(f"MOSQUITTO: Erro ao converter payload de {msg.topic}: {e}")
+    except json.JSONDecodeError:
+        print(f"MOSQUITTO: Payload inválido (não é JSON): {msg.payload}")
     except Exception as e:
         print(f"MOSQUITTO: Erro inesperado no processamento da mensagem: {e}")
+

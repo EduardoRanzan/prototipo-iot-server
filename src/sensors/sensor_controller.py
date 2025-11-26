@@ -1,19 +1,20 @@
-from influxdb_client import Point
+from influxdb_client import Point, WritePrecision
 from influxDB.influx_client import client_write_api, client_query_api, client_delete_api, get_bucket, get_org
 
 bucket = get_bucket()
 org = get_org()
 
-def post_records(sensor, valor):
+def post_records(sensor, valor, timestamp):
     write_api = client_write_api()
 
     point = (
         Point("records")
         .tag("sensor", sensor)
         .field("valor", float(valor))
+        .time(timestamp, WritePrecision.MS)
     )
     write_api.write(bucket=bucket, org=org, record=point)
-    print(f"INFLUXDB: Registros inseridos: {valor}")
+    print(f"INFLUXDB: Registros inseridos valor: {valor} timestamp {timestamp}")
     write_api.close()
 
 def get_records(sensor, range):

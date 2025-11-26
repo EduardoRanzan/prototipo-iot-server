@@ -6,8 +6,8 @@ from .mosquitto_controller import controller_on_connect, controller_on_message
 
 load_dotenv()
 
-BROKER = os.getenv("MOQ_BROKER", "localhost")
-PORT = int(os.getenv("MOQ_PORT", "1883"))
+BROKER = os.getenv("MQTT_BROKER", "localhost")
+PORT = int(os.getenv("MQTT_PORT", "1883"))
 
 
 def start():
