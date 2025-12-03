@@ -11,7 +11,7 @@ def post_records(sensor, valor, timestamp):
         Point("records")
         .tag("sensor", sensor)
         .field("valor", float(valor))
-        .time(timestamp, WritePrecision.MS)
+        .time(timestamp, WritePrecision.S)
     )
     write_api.write(bucket=bucket, org=org, record=point)
     print(f"INFLUXDB: Registros inseridos valor: {valor} timestamp {timestamp}")

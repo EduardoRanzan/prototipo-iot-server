@@ -24,10 +24,11 @@ def controller_on_message(client, userdata, msg):
 
         sensor_type = msg.topic.split("/")[-1]
 
-        post_records(sensor_type, value, timestamp_ms)
-
         print(f"{datetime.now().strftime('%Y-%m-%d %H:%M:%S')} "
               f"MOSQUITTO: [{sensor_type}] Valor: {value} | Timestamp: {timestamp_ms}")
+        
+        post_records(sensor_type, value, timestamp_ms)
+
 
     except json.JSONDecodeError:
         print(f"MOSQUITTO: Payload inválido (não é JSON): {msg.payload}")
